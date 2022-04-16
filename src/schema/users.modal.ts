@@ -13,11 +13,20 @@ const UsersSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    email: {
+        type: String,
+        required: true
+    },
+    userRole: {
+        type: String,
+        required: false
+    },
     password: {
         type: String,
         required: true
     },
-    data:{
+    date:{
         type: Date,
         default: Date.now
     },

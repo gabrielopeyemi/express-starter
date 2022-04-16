@@ -4,11 +4,11 @@ import { serverName, port } from '../config/serverConfig';
 import { connString } from '../config/dbConfig';
 import swaggerJSDoc from 'swagger-jsdoc';
 import SwaggerUi from 'swagger-ui-express';
+const bodyParser = require('body-parser');
 // import {  } from './../config';
 // const {  } = serverConfig;
 
 const app = express();
-
 
 // Extended https:swagger.io
 const options = {
@@ -29,7 +29,7 @@ const options = {
 
 const swaggerDoc = swaggerJSDoc(options);
 app.use("/api-docs", SwaggerUi.serve, SwaggerUi.setup(swaggerDoc));
-
+app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
     res.send(`I'm ${serverName}, I'm running`)
@@ -38,6 +38,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/users', require('./routes/users/controllers'));
+// app.use('/api/article', require('./routes/article/controllers'));
 
 
 
