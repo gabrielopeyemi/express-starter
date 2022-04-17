@@ -1,3 +1,4 @@
+import { json } from 'body-parser';
 import express from 'express';
 import { userArgs } from '../../types';
 const postModal = require('../../schema/users.modal')
@@ -18,8 +19,16 @@ class UserService {
         return  createdUser;
     }
 
-    findAllUsers(){
-        return 'all user';
+    async findAllUsers(res: express.Response){
+        console.log('hello world')
+        try{
+            const response = await postModal.find()
+            console.log({ response });
+            return res.json(response);
+        }catch(err){
+            console.log({ err });
+            return res.json({message: err});
+        }
     }
 
     updateUser(){
