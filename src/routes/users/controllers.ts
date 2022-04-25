@@ -9,26 +9,30 @@ import { userArgs } from '../../types';
 
 const UserServiceInstance = new UserService();
 
-
+const validateUser = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    console.log('hello johnson');
+    next();
+    // +33 6 26 52 02 09
+}
 
 const router = Router();
 
-
-router.post('/', userValidationRules(), async (req: express.Request, res: express.Response) => {
+// create a user
+router.post('/create', userValidationRules(), validateUser, async (req: express.Request, res: express.Response) => {
     validate(req, res);
-    const user: userArgs = req.body;
-    const response = await UserServiceInstance.createUser(user);
-    return res.status(200).send(response);
+    const { username, email, password }: userArgs = req.body;
+    await UserServiceInstance.createUser(req.body, res);
+    return;
 });
 
 // Get all user
-router.get('/all',async (req: express.Request, res: express.Response) => {
+router.get('/',async (req: express.Request, res: express.Response) => {
     return await UserServiceInstance.findAllUsers(res)
 });
 
 // update one user
-router.put('/update', async (req: express.Request, res: express.Response) => {
-    return 'you are updated!'
+router.put('/update/:id  ', async (req: express.Request, res: express.Response) => {
+    return await UserServiceInstance.updateOne(res, req);
 });
 
 

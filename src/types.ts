@@ -6,3 +6,14 @@ export interface userArgs  {
     userRole: 'admin' | 'user'; // set user's roles
     password: string;
 }
+
+export interface LoginArgs{
+    username: string;
+    email: string;
+    password: string;
+}
+
+export enum UserTypes {
+    admin = 'admin',
+    user = 'user',
+}

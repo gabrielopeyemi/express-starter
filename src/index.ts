@@ -5,8 +5,7 @@ import { connString } from '../config/dbConfig';
 import swaggerJSDoc from 'swagger-jsdoc';
 import SwaggerUi from 'swagger-ui-express';
 const bodyParser = require('body-parser');
-// import {  } from './../config';
-// const {  } = serverConfig;
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -28,8 +27,9 @@ const options = {
 };
 
 const swaggerDoc = swaggerJSDoc(options);
+app.use(express.json());
 app.use("/api-docs", SwaggerUi.serve, SwaggerUi.setup(swaggerDoc));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send(`I'm ${serverName}, I'm running`)
@@ -38,6 +38,8 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/users', require('./routes/users/controllers'));
+app.use('/api/auth', require('./routes/Auth/controllers'));
+app.use('/api/article', require('./routes/Articles/controller'));
 // app.use('/api/article', require('./routes/article/controllers'));
 
 
