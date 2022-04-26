@@ -16,7 +16,7 @@ class AuthService {
         const { match, token, data } = await UserServiceInstance.checkUser(email, password);
 
         if(!match){
-            res.status(400).send(`user not found!`);
+            res.status(400).send(`email or password is incorrect!`);
         }
 
         if(match){

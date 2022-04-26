@@ -4,10 +4,18 @@ import { serverName, port } from '../config/serverConfig';
 import { connString } from '../config/dbConfig';
 import swaggerJSDoc from 'swagger-jsdoc';
 import SwaggerUi from 'swagger-ui-express';
+var cors = require('cors')
 const bodyParser = require('body-parser');
 const jwt = require('jsonwebtoken');
 
 const app = express();
+
+app.use(cors());
+
+var corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
 
 // Extended https:swagger.io
 const options = {
@@ -38,7 +46,7 @@ app.get('/', (req, res) => {
 
 
 app.use('/api/users', require('./routes/users/controllers'));
-app.use('/api/auth', require('./routes/Auth/controllers'));
+app.use('/api/auth', cors(corsOptions) , require('./routes/Auth/controllers'));
 app.use('/api/article', require('./routes/Articles/controller'));
 // app.use('/api/article', require('./routes/article/controllers'));
 
