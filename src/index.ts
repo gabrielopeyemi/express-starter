@@ -18,25 +18,7 @@ var corsOptions = {
 };
 
 // Extended https:swagger.io
-const options = {
-    "swagger": "2.0",
-    definition: {
-        info: {
-            "version": "1.0.0",
-            title: `${serverName} API`,
-            description: `${serverName} API infomation`,
-            contact: {
-                name: 'Opeyemi Famosipe',
-            },
-            servers: [`http://localhost:${port}`]
-        }
-    },
-    apis: ['routes/users/controllers.ts']
-};
-
-const swaggerDoc = swaggerJSDoc(options);
 app.use(express.json());
-app.use("/api-docs", SwaggerUi.serve, SwaggerUi.setup(swaggerDoc));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
